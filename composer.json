@@ -1,0 +1,13 @@
+{
+    "name": "marjan/untitled",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "MJ\\": "src/"
+        }
+    },
+    "minimum-stability": "beta",
+    "require": {
+        "symfony/http-foundation": "^6.4@RC"
+    }
+}
