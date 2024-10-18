@@ -5,7 +5,7 @@ namespace App\Interpreter;
 use MJ\Lib\Http\HttpResponse;
 use MJ\Lib\Router\Route;
 
-class EndpointInterpreter implements InterpreterInterface
+class ViewInterpretor implements InterpreterInterface
 {
     public function interpret(Route $route): void
     {

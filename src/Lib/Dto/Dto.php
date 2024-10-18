@@ -2,7 +2,7 @@
 
 namespace MJ\Lib\Dto;
 
-class Dto
+abstract class Dto
 {
 
 }

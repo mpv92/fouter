@@ -2,7 +2,11 @@
 
 namespace Dtos\User;
 
-class CreateUserOutputDto
+use MJ\Lib\Dto\Dto;
+
+class CreateUserOutputDto extends Dto
 {
-    public string $firstName;
+    public string $firstname;
+    public string $lastname;
+    public string $email;
 }

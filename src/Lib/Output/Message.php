@@ -3,6 +3,7 @@
 namespace MJ\Lib\Output;
 
 use app\App;
+use JetBrains\PhpStorm\NoReturn;
 
 class Message
 {
@@ -27,9 +28,8 @@ class Message
         //log
     }
 
-    public function shutdown(int $errorCode = null): void
+    #[NoReturn] public function shutdown(int $errorCode = null): void
     {
-        App::sendStatusCode($errorCode);
-        App::shutdown();
+        App::instance()->sendStatusCode($errorCode);
     }
 }

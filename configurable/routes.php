@@ -7,9 +7,6 @@ use MJ\Api\Users\GetSingleUserByFirstname;
 use MJ\Api\Users\SingleUser;
 use MJ\Middlewares\Users\AuthenticateBeforeCreateMiddleware;
 
-\MJ\Api\Index::get("/")
-    ->after(\MJ\Middlewares\TransformResponseMiddleware::class);
-
 //directly with ::get
 SingleUser::get('users/int:user_id');
 

@@ -9,8 +9,8 @@ class InputDtoRunnable
 {
     public static function run(Request $request, Route $routeInstance): Route
     {
-        $inputDto = $routeInstance->getInputDto();
-        //todo: do validation or whatever
+        $inputDtoClassName = $routeInstance->getInputDto();
+        var_dump($request->getContent());
         return $routeInstance;
     }
 }
