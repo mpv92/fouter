@@ -17,9 +17,20 @@ class Route
         private ?string $afterMiddleware = null,
         private ?Request $request = null,
         private ?Response $response = null,
-        private ?array $routeParameters = null
+        private ?array $routeParameters = null,
+        private ?Endpoint $endpointInstance = null
     )
     {
+    }
+
+    public function getEndpointInstance(): ?Endpoint
+    {
+        return $this->endpointInstance;
+    }
+
+    public function setEndpointInstance(?Endpoint $endpointInstance): void
+    {
+        $this->endpointInstance = $endpointInstance;
     }
 
     public function getRouteParameters(): ?array

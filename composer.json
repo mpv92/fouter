@@ -2,12 +2,18 @@
     "name": "marjan/untitled",
     "type": "project",
     "autoload": {
+        "classmap": [
+            "src/Entities"
+        ],
         "psr-4": {
-            "MJ\\": "src/"
+            "MJ\\": "src/",
+            "App\\": "app/"
         }
     },
     "minimum-stability": "beta",
     "require": {
-        "symfony/http-foundation": "^6.4@RC"
+        "symfony/http-foundation": "^6.4@RC",
+        "psr/container": "^2.0",
+        "illuminate/database": "^11.27"
     }
 }

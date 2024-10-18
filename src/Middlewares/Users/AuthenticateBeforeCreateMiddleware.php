@@ -16,4 +16,9 @@ class AuthenticateBeforeCreateMiddleware extends Middleware
             return null;
         }
     }
+
+    public static function isAdmin(): bool
+    {
+        return true;
+    }
 }

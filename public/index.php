@@ -1,38 +1,17 @@
 <?php
-use Symfony\Component\HttpFoundation\Request;
-use \MJ\Lib\Router\Router;
 
-require_once __DIR__ . '/routes.php';
+use App\App;
+use App\Runnable\BeforeMiddlewareRunnable;
+use App\Runnable\DependencyInjectionRunnable;
+use App\Startable\StartableRouter;
 
-$request = Request::createFromGlobals();
-$assumedTargetWithParams = Router::assume($request->getMethod(), $request->getRequestUri());
+require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../app/App.php';
 
-if(null === $assumedTargetWithParams) {
-    return (new \MJ\Responses\NotFoundResponse())->send();
-}
-
-/**
- * @var \MJ\Lib\Router\Route $routeInstance
- */
-$routeInstance = $assumedTargetWithParams[0];
-$routeInstance->setRequest($request);
-$routeInstance->setRouteParameters($assumedTargetWithParams[1]);
-
-//start sequence
-if($beforeMiddleware = $routeInstance->getBeforeMiddleware()) {
-    $beforeMiddleware = new $beforeMiddleware();
-    $routeInstance = $beforeMiddleware($request, $routeInstance);
-}
-
-if(isset($routeInstance) && $inputDto = $routeInstance->getInputDto())
-{
-    
-}
-
-
-
-
-var_dump($routeInstance);
-//$instance = new $targetClass(...$params);
-
-//echo $instance;
+App::instance()->configureRunnables(
+    [
+        BeforeMiddlewareRunnable::class,
+        DependencyInjectionRunnable::class,
+    ]
+);
+App::instance()->start(StartableRouter::class);

@@ -19,7 +19,6 @@ class Router
         $uri = self::cleanRequestUri($uri);
         $amountOfSegments = count(explode('/', $uri));
         $unifiedRequestMethod = self::unifyRequestMethod($requestMethod);
-        //self::$routes[self::requestMethod($requestMethod)][$amountOfSegments][$uri] = $targetClassName;
         return self::$routes[$unifiedRequestMethod][$amountOfSegments][$uri] = new Route(
             $unifiedRequestMethod,
             $uri,
@@ -38,8 +37,13 @@ class Router
         $amountOfSegments = count($requestedUriSegments);
         $assumedRouteTarget = null;
         $parametersForAssumedTarget = [];
+        $possibleRoutes = [];
 
-        foreach (self::$routes[self::unifyRequestMethod($requestMethod)][$amountOfSegments] as $routeIdentifier => $route) {
+        if(isset(self::$routes[self::unifyRequestMethod($requestMethod)][$amountOfSegments])) {
+            $possibleRoutes = self::$routes[self::unifyRequestMethod($requestMethod)][$amountOfSegments];
+        }
+
+        foreach ($possibleRoutes as $routeIdentifier => $route) {
             $iterationRouteSegment = explode('/', $routeIdentifier);
             $hits = 0;
             foreach ($iterationRouteSegment as $index => $segment) {
@@ -54,14 +58,15 @@ class Router
                         $hits++;
                     }
                 }
-                if ($hits === $amountOfSegments) {
-                    $assumedRouteTarget = $route;
-                } else {
-                    return null;
-                }
+            }
+            if ($hits === $amountOfSegments) {
+                $assumedRouteTarget = $route;
             }
         }
-        return [$assumedRouteTarget, $parametersForAssumedTarget];
+        if(null !== $assumedRouteTarget) {
+            return [$assumedRouteTarget, $parametersForAssumedTarget];
+        }
+        return null;
     }
 
     private static function getParameterTypeOfRequestedUriParameter(string $parameter): string
